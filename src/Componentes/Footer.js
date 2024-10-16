@@ -10,8 +10,9 @@ function Footer() {
         <a href="#faq">FAQ</a>
       </div>
       <div className="social-media">
-        <a href="https://www.instagram.com">Instagram</a>
-        <a href="https://www.facebook.com">Facebook</a>
+        <img src='/img/email.svg' alt='email'/>
+        <a href="https://www.instagram.com"><img src='/img/instagram.svg' alt='instagram'/></a>
+        <a href="https://www.facebook.com"><img src='/img/facebook.svg' alt='facebook'/></a>
       </div>
       <p>&copy; 2024 AuraFlame. Todos los derechos reservados.</p>
     </footer>

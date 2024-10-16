@@ -5,12 +5,63 @@ body {
   background-color: #fafafa;
 }
 
+/* Estilos para el header */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  background-color: #f4e7d4;
+  background-color: #DFD0AE; /* Color beige de fondo */
+  padding: 0.8rem 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-header {
+  width: 60px; /* Ajusta el tamaño del logotipo */
+  margin-top: 0.2rem;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #5C4533; /* Color marrón para el texto */
+}
+
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 24px;
+  cursor: pointer;
+}
+
+.bar {
+  width: 30px;
+  height: 3px;
+  background-color: #5C4533; /* Color marrón para las barras */
+  margin: 3px 0;
+  border-radius: 2px;
+}
+
+/* Estilo para el menú de navegación */
+.nav-menu ul {
+  list-style: none;
+  display: none;
+  gap: 1rem;
+}
+
+.nav-menu ul li {
+  display: inline;
+}
+
+.nav-menu ul li a {
+  text-decoration: none;
+  color: #5C4533; /* Color marrón oscuro */
+  font-weight: bold; /* Aplica negrita a los enlaces */
+  font-size: 1rem; /* Ajusta el tamaño de fuente */
+}
+
+.nav-menu ul li a:hover {
+  color: #E07A5F; /* Color diferente cuando se pasa el ratón */
 }
 
 .logo {
@@ -24,23 +75,75 @@ nav ul {
   gap: 20px;
 }
 
-
-.product-grid {
-  display: flex;
-  gap: 20px;
+/*Estilo para los productos*/
+.featured-products {
+  padding: 2rem;
+  background-color: #f8f9fa; /* Fondo claro para contraste */
 }
 
-.product-card {
-  background-color: #fff;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  text-align: center;
+h2 {
+  text-align: start;
+  margin-bottom: 2rem;
+  color: #5C4533; /* Color marrón */
+  font-family: 'Arial', sans-serif;
 }
 
+.card {
+  border: none; /* Eliminar el borde por defecto */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 1px 0px #DFD0AE; /* Sombra para profundidad */
+  transition: transform 0.2s; /* Transición suave */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Aumentar el tamaño al pasar el mouse */
+}
+
+.card-img-top {
+  border-top-left-radius: 10px; /* Redondear bordes superiores */
+  border-top-right-radius: 10px;
+  height: 260px; /* Altura fija para las imágenes */
+  object-fit: cover; /* Mantener el aspecto de la imagen */
+}
+
+.card-title {
+  font-weight: bold; /* Título en negrita */
+  color: #333; /* Color del texto */
+}
+
+.card-text {
+  font-size: 1.2rem; /* Aumentar el tamaño del texto*/
+  color: #5C4533; /* Color marrón */
+}
+
+button {
+  background-color: #75685F; /* Color marrón */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 0.5rem 1rem; /* Espaciado interno */
+  color: white; /* Texto blanco */
+  font-weight: bold; /* Texto en negrita */
+}
+
+button:hover {
+  background-color: #48322E; /* Color más oscuro al pasar el mouse */
+}
+
+/*Estilo para el footer*/
 footer {
   padding: 20px;
-  background-color: #333;
-  color: #fff;
+  background-color: #75685F20;
+  border-top: 1px solid #75685F;
+  color: #75685F;
   text-align: center;
+}
+
+.social-media img {
+  width: 32px; /* Cambia el tamaño según necesites */
+  margin: 0 10px; /* Espaciado entre las imágenes */
+  transition: transform 0.2s; /* Suave aumento al pasar el mouse */
+}
+
+.social-media img:hover {
+  transform: scale(1.1); /* Aumentar al pasar el mouse */
 }

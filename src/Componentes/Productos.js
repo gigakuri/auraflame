@@ -1,25 +1,30 @@
 import React from 'react';
+import { Card, CardImg, CardBody, CardTitle, CardText, Button, Row, Col } from 'reactstrap';
 
 const Velas = [
-  { id: 1, name: "Vela Lavanda", price: 15, image: "/path/to/product1.jpg" },
-  { id: 2, name: "Vela Vainilla", price: 18, image: "/path/to/product2.jpg" },
-  { id: 3, name: "Vela Canela", price: 20, image: "/path/to/product3.jpg" },
+  { id: 1, name: "Velas Relajantes", descripcion: "texto", image: "/img/img2.jpeg" },
+  { id: 2, name: "Velas Dulces", descripcion: "texto", image: "/img/img1.jpeg" },
+  { id: 3, name: "Velas Florales", descripcion: "texto", image: "/img/img3.jpeg" },
 ];
 
 function Productos() {
   return (
     <section className="featured-products">
-      <h2>Productos Destacados</h2>
-      <div className="product-grid">
+      <h2>Colecciones</h2>
+      <Row>
         {Velas.map(product => (
-          <div key={product.id} className="product-card">
-            <img src={product.image} alt={product.name} />
-            <h3>{product.name}</h3>
-            <p>${product.price}</p>
-            <button>Comprar Ahora</button>
-          </div>
+          <Col key={product.id} sm="12" md="6" lg="4" className="mb-4">
+            <Card className="text-center">
+              <CardImg top width="100%" src={product.image} alt={product.name} />
+              <CardBody>
+                <CardTitle tag="h5">{product.name}</CardTitle>
+                <CardText>{product.descripcion}</CardText>
+                <Button color="warning" outline>Ver Colección</Button>
+              </CardBody>
+            </Card>
+          </Col>
         ))}
-      </div>
+      </Row>
     </section>
   );
 }
