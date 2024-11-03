@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Footer({darkMode}) {
+function Footer({ darkMode }) {
   return (
     <footer>
       <div className={`footer-links ${darkMode ? "dark" : "light"}`}>

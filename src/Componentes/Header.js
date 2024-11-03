@@ -51,7 +51,7 @@ function Header({ darkMode, toggleDarkMode }) {
             <Link to="/">FAQ</Link>
           </li>
           <li>
-            <Link to="/">Contacto</Link>
+            <Link to="/About">Contacto</Link>
           </li>
           <li>
             {/* Modo nocturno */}
