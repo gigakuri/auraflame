@@ -5,80 +5,193 @@ body {
   background-color: #fafafa;
 }
 
-/* Estilos para el header */
+/* Modo claro */
+.app.light {
+  background-color: #f8f9fa;
+  color: #000000;
+}
+
+.app.light button {
+  background-color: #48322E;
+  color: #ffffff;
+}
+
+.app.light button:hover {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #48322E;
+}
+
+/* Modo oscuro */
+.app.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.app.dark button {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #48322E;
+}
+
+.app.dark button:hover {
+  background-color: #48322E;
+  color: #ffffff;
+}
+
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #DFD0AE; /* Color beige de fondo */
+  background-color: #DFD0AE;
   padding: 0.8rem 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 999999;
 }
 
+/* Logo */
 .logo-header {
-  width: 60px; /* Ajusta el tamaño del logotipo */
-  margin-top: 0.2rem;
+  width: 60px;
 }
 
 .logo-text {
   font-size: 24px;
   font-weight: bold;
-  color: #5C4533; /* Color marrón para el texto */
+  color: #5C4533;
+  margin: 0 auto;
 }
 
+/* Icono de menú para móviles */
 .menu-icon {
-  display: flex;
+  display: none; /* Oculto en pantallas grandes */
   flex-direction: column;
   justify-content: space-between;
   height: 24px;
   cursor: pointer;
+  z-index: 10; /* Para que el icono esté sobre el menú al abrir */
+  padding-left: 0.5rem;
 }
 
 .bar {
   width: 30px;
   height: 3px;
-  background-color: #5C4533; /* Color marrón para las barras */
+  background-color: #5C4533;
   margin: 3px 0;
   border-radius: 2px;
+  transition: transform 0.3s ease; /* Animación de las barras */
 }
 
-/* Estilo para el menú de navegación */
+/* Menú de navegación */
 .nav-menu ul {
   list-style: none;
-  display: none;
-  gap: 1rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: end;
 }
 
-.nav-menu ul li {
-  display: inline;
+.nav-menu ul li button {
+  text-decoration: none;
 }
 
 .nav-menu ul li a {
   text-decoration: none;
-  color: #5C4533; /* Color marrón oscuro */
-  font-weight: bold; /* Aplica negrita a los enlaces */
-  font-size: 1rem; /* Ajusta el tamaño de fuente */
+  color: #5C4533;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .nav-menu ul li a:hover {
-  color: #E07A5F; /* Color diferente cuando se pasa el ratón */
+  color: #E07A5F;
 }
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-nav ul {
-  list-style: none;
+/* Estilos del botón del modo nocturno */
+header button#darkMode {
+  margin-left: 1rem;
+  width: 40px;               /* Tamaño ligeramente mayor */
+  height: 40px;
+  font-size: 16px;           /* Tamaño de fuente más grande para los íconos */
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;        /* Completamente circular */
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
   display: flex;
-  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f560; /* Fondo claro para modo día */
+  color: #121212;            /* Color de ícono oscuro */
+  box-shadow: 0 4px 8px rgba(100, 100, 100, 0.2); /* Sombra sutil */
+}
+
+header button#darkMode:hover {
+  transform: scale(1.1);     /* Efecto de escala en hover */
+}
+
+header button#darkMode.dark { 
+  background-color: #33333340; /* Fondo oscuro para modo noche */
+  color: #f5f5f5;            /* Ícono claro para modo oscuro */
+  box-shadow: 0 4px 8px rgba(100, 100, 100, 0.2); /* Sombra sutil */
+}
+
+/* Estilos responsivos */
+@media (max-width: 760px) {
+  /* Cambia el menú a icono de hamburguesa en pantallas pequeñas */
+  .menu-icon {
+    display: flex;
+  }
+
+  .nav-menu ul {
+    display: none; /* Oculta el menú por defecto en móviles */
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #DFD0AE;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 200px;
+    border-radius: 5px;
+  }
+
+  /* Muestra el menú al activar */
+  .nav-menu.active ul {
+    display: flex;
+  }
+
+  .nav-menu ul li {
+    display: flex;
+    width: 100%;
+  }
+  
+  .nav-menu ul li:nth-child(5){
+    justify-content: end;
+    align-items: end;
+  }
+
+  /* Transformaciones de la animación del icono */
+  .menu-icon.active .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .menu-icon.active .bar:nth-child(2) {
+    opacity: 0; /* Oculta la barra central */
+  }
+
+  .menu-icon.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
 }
 
 /*Estilo para los productos*/
 .featured-products {
   padding: 2rem;
   background-color: #f8f9fa; /* Fondo claro para contraste */
+}
+.featured-products.dark {
+  background-color: #333; /* Color de fondo oscuro */
+  color: #fff;
 }
 
 h2 {
@@ -116,7 +229,7 @@ h2 {
   color: #5C4533; /* Color marrón */
 }
 
-button {
+.featured-products button {
   background-color: #75685F; /* Color marrón */
   border: none; /* Sin borde */
   border-radius: 5px; /* Bordes redondeados */
@@ -125,7 +238,7 @@ button {
   font-weight: bold; /* Texto en negrita */
 }
 
-button:hover {
+.featured-products button:hover {
   background-color: #48322E; /* Color más oscuro al pasar el mouse */
 }
 
@@ -138,6 +251,35 @@ footer {
   text-align: center;
 }
 
+/* Estilos para la sección de enlaces */
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Permite que los enlaces se ajusten en múltiples líneas en pantallas pequeñas */
+  margin-bottom: 10px;
+}
+
+.footer-links.dark a {
+  color: #DFD0AE;
+}
+
+.copy.dark p {
+  color: #DFD0AE;
+}
+
+.footer-links a {
+  color: #75685F;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #E07A5F;  /* Cambia de color al pasar el cursor */
+}
+
 .social-media img {
   width: 32px; /* Cambia el tamaño según necesites */
   margin: 0 10px; /* Espaciado entre las imágenes */
@@ -146,4 +288,19 @@ footer {
 
 .social-media img:hover {
   transform: scale(1.1); /* Aumentar al pasar el mouse */
+}
+
+.copy{
+  margin: 1rem;
+}
+
+/*Estilo para About, Terms y Privacy*/
+.content-section {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+.content-section.dark {
+background-color: #333; /* Color de fondo oscuro */
+  color: #fff;
 }
