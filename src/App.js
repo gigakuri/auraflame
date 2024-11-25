@@ -9,25 +9,37 @@ import Footer from "./Componentes/Footer.js";
 import About from "./Componentes/About";
 import Terms from "./Componentes/Terms";
 import Privacy from "./Componentes/Privacy";
+import Login from "./Componentes/Login"; // Importa el componente de Login
 
 class App extends Component {
   constructor(props) {
     super(props);
-    // Estado para controlar el modo oscuro
     this.state = {
       darkMode: false,
+      isAuthenticated: false,
+      username: "",
     };
   }
 
-  // Función para alternar el modo
   toggleDarkMode = () => {
     this.setState((prevState) => ({
       darkMode: !prevState.darkMode,
     }));
   };
 
+  setAuthenticated = (authStatus, username = "") => {
+    this.setState({ isAuthenticated: authStatus, username });
+  };
+
+  handleLogout = () => {
+    this.setState({
+      isAuthenticated: false,
+      username: "",
+    });
+  };
+
   render() {
-    const { darkMode } = this.state;
+    const { darkMode, isAuthenticated } = this.state;
 
     return (
       <Router>
@@ -35,13 +47,27 @@ class App extends Component {
           <div className={`app ${darkMode ? "dark" : "light"}`}>
             <Header darkMode={darkMode} toggleDarkMode={this.toggleDarkMode} />
             <Routes>
-              <Route path="/" element={<Products darkMode={darkMode} />} />
+              <Route
+                path="/"
+                element={
+                  <Products
+                    darkMode={darkMode}
+                    isAuthenticated={isAuthenticated}
+                    username={this.state.username}
+                    handleLogout={this.handleLogout} 
+                  />
+                }
+              />
               <Route path="/store" element={<Candles darkMode={darkMode} />} />
               <Route path="/about" element={<About darkMode={darkMode} />} />
               <Route path="/terms" element={<Terms darkMode={darkMode} />} />
               <Route
                 path="/privacy"
                 element={<Privacy darkMode={darkMode} />}
+              />
+              <Route
+                path="/login"
+                element={<Login setAuthenticated={this.setAuthenticated} />}
               />
             </Routes>
             <Footer darkMode={darkMode} />
