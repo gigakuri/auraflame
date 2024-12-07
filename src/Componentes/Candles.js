@@ -8,16 +8,14 @@ import {
   CardText,
   Row,
   Col,
-  Button
+  Button,
 } from "reactstrap";
 
-function Candles({ darkMode }) {
+function Candles({ darkMode, addToCart }) {
   const location = useLocation();
-  const { velasFiltradas, nombreColeccion  } = location.state || { velasFiltradas: [], nombreColeccion: "colección"};
-  const handleBuy = (vela) => {
-    // Acción al hacer clic en el botón de compra, por ejemplo:
-    console.log(`Añadir ${vela.nombre} al carrito.`);
-    // Aquí puedes llamar a una función que añada el producto al carrito o redirija a una página de compra.
+  const { velasFiltradas, nombreColeccion } = location.state || {
+    velasFiltradas: [],
+    nombreColeccion: "colección",
   };
 
   return (
@@ -25,16 +23,19 @@ function Candles({ darkMode }) {
       <h2>Velas {nombreColeccion}</h2>
       <Row>
         {velasFiltradas.map((vela) => (
-          <Col key={`vela-${vela.id_vela}`} sm="12" md="6" lg="4" className="mb-4">
+          <Col
+            key={`vela-${vela.id_vela}`}
+            sm="12"
+            md="6"
+            lg="4"
+            className="mb-4"
+          >
             <Card className="text-center">
-                {/* Guardar una imagen para cada vela en la BD */}
               <CardImg top width="100%" src={vela.img} alt={vela.nombre} />
               <CardBody>
                 <CardTitle tag="h5">{vela.nombre}</CardTitle>
                 <CardText>{vela.descripcion}</CardText>
-                <Button color="primary" onClick={() => handleBuy(vela)}>
-                  Comprar
-                </Button>
+                <Button onClick={() => addToCart(vela)}>Comprar</Button>
               </CardBody>
             </Card>
           </Col>

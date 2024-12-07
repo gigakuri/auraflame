@@ -8,30 +8,21 @@ import {
   CardBody,
   CardTitle,
   CardText,
-  Button,
   Row,
   Col,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
+  Button,
 } from "reactstrap";
 
-function Products({ darkMode, isAuthenticated, username, handleLogout }) {
+function Products({ darkMode }) {
   const [velas, setVelas] = useState([]);
   const [colecciones, setColecciones] = useState([]);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
 
   useEffect(() => {
-    // Cargar las colecciones desde la base de datos
     axios
       .get(URLPHP + "getColecciones.php")
       .then((response) => setColecciones(response.data))
       .catch((error) => console.error("Error al cargar colecciones:", error));
 
-    // Cargar las velas desde la base de datos
     axios
       .get(URLPHP + "getVelas.php")
       .then((response) => setVelas(response.data))
@@ -40,26 +31,9 @@ function Products({ darkMode, isAuthenticated, username, handleLogout }) {
 
   return (
     <section className={`featured-products ${darkMode ? "dark" : "light"}`}>
-      <h4>
-        {isAuthenticated ? (
-            <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
-              <DropdownToggle tag="span" onClick={toggleDropdown} style={{ cursor: "pointer" }}>
-                {username} | Cart(0)
-              </DropdownToggle>
-              <DropdownMenu end>
-                <DropdownItem onClick={handleLogout}>
-                <Link to="/">Cerrar Sesión</Link>
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          ) : (
-            <Link to="/login">Iniciar Sesión</Link>
-          )}
-      </h4>
       <h2>Colecciones</h2>
       <Row>
         {colecciones.map((product) => {
-          // Filtrar las velas según el id_coleccion
           const velasFiltradas = velas.filter(
             (vela) => vela.id_coleccion === product.id_coleccion
           );
@@ -84,7 +58,7 @@ function Products({ darkMode, isAuthenticated, username, handleLogout }) {
                   <CardText>{product.descripcion}</CardText>
                   <Link
                     to="/store"
-                    state={{ velasFiltradas, nombre: product.nombre }}
+                    state={{ velasFiltradas, nombreColeccion: product.nombre }}
                   >
                     <Button color="warning" outline>
                       Ver Colección

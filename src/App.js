@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Componentes/Header.js";
@@ -9,7 +9,9 @@ import Footer from "./Componentes/Footer.js";
 import About from "./Componentes/About";
 import Terms from "./Componentes/Terms";
 import Privacy from "./Componentes/Privacy";
-import Login from "./Componentes/Login"; // Importa el componente de Login
+import Login from "./Componentes/Login";
+import Profile from "./Componentes/Profile.js";
+import Cart from "./Componentes/Cart";
 
 class App extends Component {
   constructor(props) {
@@ -18,6 +20,8 @@ class App extends Component {
       darkMode: false,
       isAuthenticated: false,
       username: "",
+      cartCount: 0,
+      cartItems: [],
     };
   }
 
@@ -38,37 +42,148 @@ class App extends Component {
     });
   };
 
+  addToCart = (product) => {
+    this.setState((prevState) => {
+      // Buscar si el producto ya está en el carrito usando id_vela
+      const existingProduct = prevState.cartItems.find(
+        (item) => item.id_vela === product.id_vela
+      );
+
+      if (existingProduct) {
+        // Si el producto ya existe, incrementar la cantidad
+        return {
+          cartItems: prevState.cartItems.map((item) =>
+            item.id_vela === product.id_vela
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          ),
+          cartCount: prevState.cartCount + 1, // Incrementar total de productos
+        };
+      } else {
+        // Si el producto no existe, agregarlo al carrito
+        return {
+          cartItems: [
+            ...prevState.cartItems,
+            { ...product, quantity: 1 }, // Asegúrate de copiar todos los datos del producto
+          ],
+          cartCount: prevState.cartCount + 1, // Incrementar total de productos
+        };
+      }
+    });
+  };
+
+  removeFromCart = (id_vela) => {
+    this.setState((prevState) => {
+      // Encontrar el producto que queremos eliminar
+      const productToRemove = prevState.cartItems.find(
+        (item) => item.id_vela === id_vela
+      );
+  
+      // Si el producto existe en el carrito
+      if (productToRemove) {
+        // Restamos la cantidad de productos que estamos eliminando del total
+        const newCartCount = prevState.cartCount - productToRemove.quantity;
+  
+        // Eliminamos el producto del carrito
+        const updatedCartItems = prevState.cartItems.filter(
+          (item) => item.id_vela !== id_vela
+        );
+  
+        // Devolvemos el nuevo estado
+        return {
+          cartCount: newCartCount,
+          cartItems: updatedCartItems,
+        };
+      }
+  
+      // Si el producto no se encuentra, no hacemos nada
+      return prevState;
+    });
+  };
+
+  clearCart = () => {
+    this.setState({
+      cartItems: [],
+      cartCount: 0, // Reiniciar el contador
+    });
+  };
+
   render() {
-    const { darkMode, isAuthenticated } = this.state;
+    const { darkMode, isAuthenticated, cartCount } = this.state;
 
     return (
       <Router>
         <div className="App">
           <div className={`app ${darkMode ? "dark" : "light"}`}>
-            <Header darkMode={darkMode} toggleDarkMode={this.toggleDarkMode} />
+            <Header
+              darkMode={darkMode}
+              toggleDarkMode={this.toggleDarkMode}
+              isAuthenticated={isAuthenticated}
+              username={this.state.username}
+              handleLogout={this.handleLogout}
+            />
+            <div id="carrito">
+              <span>
+                <Link to="/cart">Carrito ({cartCount}) 🛒</Link>
+              </span>
+            </div>
             <Routes>
               <Route
                 path="/"
                 element={
                   <Products
                     darkMode={darkMode}
-                    isAuthenticated={isAuthenticated}
-                    username={this.state.username}
-                    handleLogout={this.handleLogout} 
+                    addToCart={this.addToCart}
+                    cartCount={cartCount}
                   />
                 }
               />
-              <Route path="/store" element={<Candles darkMode={darkMode} />} />
-              <Route path="/about" element={<About darkMode={darkMode} />} />
-              <Route path="/terms" element={<Terms darkMode={darkMode} />} />
+              <Route
+                path="/store"
+                element={
+                  <Candles
+                    darkMode={darkMode}
+                    addToCart={this.addToCart}
+                    cartCount={cartCount}
+                  />
+                }
+              />
+              <Route
+                path="/cart"
+                element={
+                  <Cart
+                    darkMode={darkMode}
+                    cartCount={cartCount}
+                    cartItems={this.state.cartItems}
+                    removeFromCart={this.removeFromCart}
+                    clearCart={this.clearCart}
+                  />
+                }
+              />
               <Route
                 path="/privacy"
                 element={<Privacy darkMode={darkMode} />}
               />
               <Route
                 path="/login"
-                element={<Login setAuthenticated={this.setAuthenticated} />}
+                element={
+                  <Login
+                    setAuthenticated={this.setAuthenticated}
+                    darkMode={darkMode}
+                  />
+                }
               />
+              <Route
+                path="/profile"
+                element={
+                  <Profile
+                    setAuthenticated={this.setAuthenticated}
+                    darkMode={darkMode}
+                  />
+                }
+              />
+              <Route path="/about" element={<About darkMode={darkMode} />} />
+              <Route path="/terms" element={<Terms darkMode={darkMode} />} />
             </Routes>
             <Footer darkMode={darkMode} />
           </div>
