@@ -12,6 +12,8 @@ import Privacy from "./Componentes/Privacy";
 import Login from "./Componentes/Login";
 import Profile from "./Componentes/Profile.js";
 import Cart from "./Componentes/Cart";
+import Orders from "./Componentes/Orders.js";
+import Register from "./Componentes/Register.js";
 
 class App extends Component {
   constructor(props) {
@@ -20,6 +22,8 @@ class App extends Component {
       darkMode: false,
       isAuthenticated: false,
       username: "",
+      idUsuario: 13,
+      rol: "",
       cartCount: 0,
       cartItems: [],
     };
@@ -31,8 +35,12 @@ class App extends Component {
     }));
   };
 
-  setAuthenticated = (authStatus, username = "") => {
-    this.setState({ isAuthenticated: authStatus, username });
+  setAuthenticated = (authStatus, username = "", idUsuario = 13, rol = "") => {
+    this.setState({ isAuthenticated: authStatus, username, idUsuario, rol });
+  };
+
+  handleLogin = (idUsuario) => {
+    this.setState({ idUsuario, isAuthenticated: true });
   };
 
   handleLogout = () => {
@@ -64,7 +72,7 @@ class App extends Component {
         return {
           cartItems: [
             ...prevState.cartItems,
-            { ...product, quantity: 1 }, // Asegúrate de copiar todos los datos del producto
+            { ...product, quantity: 1 }, // Copia los datos del producto
           ],
           cartCount: prevState.cartCount + 1, // Incrementar total de productos
         };
@@ -74,29 +82,29 @@ class App extends Component {
 
   removeFromCart = (id_vela) => {
     this.setState((prevState) => {
-      // Encontrar el producto que queremos eliminar
+      // Producto a eliminar
       const productToRemove = prevState.cartItems.find(
         (item) => item.id_vela === id_vela
       );
   
       // Si el producto existe en el carrito
       if (productToRemove) {
-        // Restamos la cantidad de productos que estamos eliminando del total
+        // Resta la cantidad de productos que estamos eliminando del total
         const newCartCount = prevState.cartCount - productToRemove.quantity;
   
-        // Eliminamos el producto del carrito
+        // Elimina el producto del carrito
         const updatedCartItems = prevState.cartItems.filter(
           (item) => item.id_vela !== id_vela
         );
   
-        // Devolvemos el nuevo estado
+        // Devuelve el nuevo estado
         return {
           cartCount: newCartCount,
           cartItems: updatedCartItems,
         };
       }
   
-      // Si el producto no se encuentra, no hacemos nada
+      // Si el producto no se encuentra
       return prevState;
     });
   };
@@ -104,7 +112,7 @@ class App extends Component {
   clearCart = () => {
     this.setState({
       cartItems: [],
-      cartCount: 0, // Reiniciar el contador
+      cartCount: 0,
     });
   };
 
@@ -120,6 +128,7 @@ class App extends Component {
               toggleDarkMode={this.toggleDarkMode}
               isAuthenticated={isAuthenticated}
               username={this.state.username}
+              idUsuario={this.state.idUsuario}
               handleLogout={this.handleLogout}
             />
             <div id="carrito">
@@ -145,6 +154,8 @@ class App extends Component {
                     darkMode={darkMode}
                     addToCart={this.addToCart}
                     cartCount={cartCount}
+                    isAuthenticated={isAuthenticated}
+                    rol={this.state.rol}
                   />
                 }
               />
@@ -157,6 +168,16 @@ class App extends Component {
                     cartItems={this.state.cartItems}
                     removeFromCart={this.removeFromCart}
                     clearCart={this.clearCart}
+                    idUsuario={this.state.idUsuario}
+                  />
+                }
+              />
+              <Route
+                path="/orders"
+                element={
+                  <Orders
+                    darkMode={darkMode}
+                    idUsuario={this.state.idUsuario}
                   />
                 }
               />
@@ -168,6 +189,15 @@ class App extends Component {
                 path="/login"
                 element={
                   <Login
+                    setAuthenticated={this.setAuthenticated}
+                    darkMode={darkMode}
+                  />
+                }
+              />
+              <Route
+                path="/register"
+                element={
+                  <Register
                     setAuthenticated={this.setAuthenticated}
                     darkMode={darkMode}
                   />

@@ -55,7 +55,7 @@ function Products({ darkMode }) {
                 />
                 <CardBody>
                   <CardTitle tag="h5">{product.nombre}</CardTitle>
-                  <CardText>{product.descripcion}</CardText>
+                  <CardText style={{'textAlign': 'justify'}}>{product.descripcion}</CardText>
                   <Link
                     to="/store"
                     state={{ velasFiltradas, nombreColeccion: product.nombre }}

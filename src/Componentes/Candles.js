@@ -11,7 +11,7 @@ import {
   Button,
 } from "reactstrap";
 
-function Candles({ darkMode, addToCart }) {
+function Candles({ darkMode, addToCart, isAuthenticated, rol }) {
   const location = useLocation();
   const { velasFiltradas, nombreColeccion } = location.state || {
     velasFiltradas: [],
@@ -34,8 +34,14 @@ function Candles({ darkMode, addToCart }) {
               <CardImg top width="100%" src={vela.img} alt={vela.nombre} />
               <CardBody>
                 <CardTitle tag="h5">{vela.nombre}</CardTitle>
-                <CardText>{vela.descripcion}</CardText>
+                <CardText style={{'textAlign': 'center'}}>{vela.descripcion}</CardText>
                 <Button onClick={() => addToCart(vela)}>Comprar</Button>
+                {isAuthenticated && rol === "admin" && (
+                  <Button style={{backgroundColor: "#849FA0"}}>Editar</Button>
+                )}
+                {isAuthenticated && rol === "admin" && (
+                  <Button style={{backgroundColor: "#E07A5F"}}>Borrar</Button>
+                )}
               </CardBody>
             </Card>
           </Col>

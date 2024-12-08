@@ -7,7 +7,7 @@ body {
 
 /* Modo claro */
 .app.light {
-  background-color: #f8f9fa;
+  background-color: #f9f9f9;
   color: #000000;
 }
 
@@ -24,7 +24,7 @@ body {
 
 /* Modo oscuro */
 .app.dark {
-  background-color: #121212;
+  background-color: #333333;
   color: #ffffff;
 }
 
@@ -64,14 +64,14 @@ header {
   padding-right: 0.5rem;
 }
 
-/* Icono de menú para móviles */
+/* Menú hamburguesa */
 .menu-icon {
-  display: none; /* Oculto en pantallas grandes */
+  display: none;
   flex-direction: column;
   justify-content: space-between;
   height: 24px;
   cursor: pointer;
-  z-index: 10; /* Para que el icono esté sobre el menú al abrir */
+  z-index: 10;
 }
 
 .bar {
@@ -80,7 +80,7 @@ header {
   background-color: #5C4533;
   margin: 3px 0;
   border-radius: 2px;
-  transition: transform 0.3s ease; /* Animación de las barras */
+  transition: transform 0.3s ease;
 }
 
 /* Menú de navegación */
@@ -109,29 +109,91 @@ header {
 /* Estilos del botón del modo nocturno */
 header button#darkMode {
   margin-left: 1rem;
-  width: 40px;               /* Tamaño ligeramente mayor */
+  width: 40px;
   height: 40px;
-  font-size: 16px;           /* Tamaño de fuente más grande para los íconos */
+  font-size: 16px;
   border: none;
   cursor: pointer;
-  border-radius: 50%;        /* Completamente circular */
+  border-radius: 50%;
   transition: background-color 0.3s, color 0.3s, transform 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5f5f560; /* Fondo claro para modo día */
-  color: #121212;            /* Color de ícono oscuro */
-  box-shadow: 0 4px 8px rgba(100, 100, 100, 0.2); /* Sombra sutil */
+  background-color: #f5f5f560;
+  color: #121212;
+  box-shadow: 0 4px 8px rgba(100, 100, 100, 0.2);
 }
 
 header button#darkMode:hover {
-  transform: scale(1.1);     /* Efecto de escala en hover */
+  transform: scale(1.1);
 }
 
 header button#darkMode.dark { 
-  background-color: #33333340; /* Fondo oscuro para modo noche */
-  color: #f5f5f5;            /* Ícono claro para modo oscuro */
-  box-shadow: 0 4px 8px rgba(100, 100, 100, 0.2); /* Sombra sutil */
+  background-color: #33333340;
+  color: #f5f5f5;
+  box-shadow: 0 4px 8px rgba(100, 100, 100, 0.2);
+}
+
+/* Contenedor principal del formulario de registro */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f7fa; /* Fondo claro */
+  padding: 6rem 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.register-container h2 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Estilo de los campos de entrada */
+.register-container form {
+  width: 100%;
+  max-width: 400px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.register-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+/* Estilo para el botón de envío */
+.register-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #849FA0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.register-container button:hover {
+  background-color: #48322E; 
+}
+
+/* Estilo para los mensajes de error */
+.register-container .error-message {
+  color: #E07A5F;
+  font-size: 0.9em;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .profile-page {
@@ -148,7 +210,7 @@ header button#darkMode.dark {
 }
 
 .profile-page.light {
-  background-color: #ffffff;
+  background-color: #f9f9f9;
   color: #333333;
 }
 
@@ -175,7 +237,7 @@ header button#darkMode.dark {
   background-color: #E07A5F;
 }
 
-/* Cart */
+/* Carrito */
 #cart-container {
   padding: 20px;
   max-width: 800px;
@@ -183,6 +245,7 @@ header button#darkMode.dark {
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: 75vh;
 }
 
 .cart-items {
@@ -280,20 +343,44 @@ header button#darkMode.dark {
   color: #75685F;
   text-decoration: none;
 }
+.dark #carrito a {
+  color: whitesmoke;
+  text-decoration: none;
+}
 
 #carrito:hover {
   color: #e67e22;
 }
 
-/* Estilos responsivos */
+/* Estilos para el overlay y spinner */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 @media (max-width: 760px) {
-  /* Cambia el menú a icono de hamburguesa en pantallas pequeñas */
+
   .menu-icon {
     display: flex;
   }
 
   .nav-menu ul {
-    display: none; /* Oculta el menú por defecto en móviles */
+    display: none;
     flex-direction: column;
     align-items: start;
     gap: 1rem;
@@ -307,7 +394,7 @@ header button#darkMode.dark {
     border-radius: 5px;
   }
 
-  /* Muestra el menú al activar */
+  /* Muestra el menú */
   .nav-menu.active ul {
     display: flex;
   }
@@ -323,7 +410,7 @@ header button#darkMode.dark {
   }
 
   .menu-icon.active .bar:nth-child(2) {
-    opacity: 0; /* Oculta la barra central */
+    opacity: 0;
   }
 
   .menu-icon.active .bar:nth-child(3) {
@@ -334,17 +421,17 @@ header button#darkMode.dark {
 /*Estilo para los productos*/
 .featured-products {
   padding: 1.5rem 2rem 2rem 2rem;
-  background-color: #f8f9fa; /* Fondo claro para contraste */
+  background-color: #f8f9fa;
 }
 .featured-products.dark {
-  background-color: #333; /* Color de fondo oscuro */
+  background-color: #333;
   color: #fff;
 }
 
 .featured-products h4 {
   text-align: end;
   margin-bottom: 2rem;
-  color: #555; /* Color marrón */
+  color: #555;
   font-family: 'Arial', sans-serif;
   font-size: 16px;
 }
@@ -352,68 +439,75 @@ header button#darkMode.dark {
 h2 {
   text-align: start;
   margin-bottom: 2rem;
-  color: #5C4533; /* Color marrón */
+  color: #5C4533;
   font-family: 'Arial', sans-serif;
 }
 
 .card {
-  border: none; /* Eliminar el borde por defecto */
-  border-radius: 10px; /* Bordes redondeados */
-  box-shadow: 0 1px 0px #DFD0AE; /* Sombra para profundidad */
-  transition: transform 0.2s; /* Transición suave */
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 1px 0px #DFD0AE;
+  transition: transform 0.2s;
 }
 
 .card:hover {
-  transform: scale(1.05); /* Aumentar el tamaño al pasar el mouse */
+  transform: scale(1.05);
 }
 
 .card-img-top {
-  border-top-left-radius: 10px; /* Redondear bordes superiores */
+  border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  height: 260px; /* Altura fija para las imágenes */
-  object-fit: cover; /* Mantener el aspecto de la imagen */
+  height: 260px;
+  object-fit: cover;
 }
 
 .card-title {
-  font-weight: bold; /* Título en negrita */
-  color: #333; /* Color del texto */
+  font-weight: bold;
+  color: #333;
 }
 
 .card-text {
-  font-size: 1.2rem; /* Aumentar el tamaño del texto*/
-  color: #5C4533; /* Color marrón */
-  text-align: justify;
+  font-size: 1.2rem;
+  color: #5C4533;
+}
+
+.dark .card {
+  color: whitesmoke;
+  background-color: #75685F20;
+}
+
+.dark .card .card-text{
+  color: whitesmoke;
 }
 
 .featured-products button {
-  background-color: #75685F; /* Color marrón */
-  border: none; /* Sin borde */
-  border-radius: 5px; /* Bordes redondeados */
-  padding: 0.5rem 1rem; /* Espaciado interno */
-  color: white; /* Texto blanco */
-  font-weight: bold; /* Texto en negrita */
+  background-color: #75685F;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-weight: bold;
 }
 
 .featured-products button:hover {
-  background-color: #48322E; /* Color más oscuro al pasar el mouse */
+  background-color: #48322E;
 }
 
 /*Estilo para About, Terms y Privacy*/
 .content-section {
   padding: 20px;
-  max-width: 800px;
   margin: auto;
   text-align: justify;
 }
+
 .content-section.dark {
-background-color: #333; /* Color de fondo oscuro */
+  background-color: #333;
   color: #fff;
 }
 
-/* Estilos del formulario de Login */
+/* Estilos del formulario de login */
 .login-container {
-  max-width: 400px;
-  margin: 3rem auto;
+  margin: 4rem auto;
   padding: 2rem;
   border-radius: 10px;
   background-color: #f8f9fa;
@@ -487,6 +581,63 @@ background-color: #333; /* Color de fondo oscuro */
   text-align: center;
 }
 
+.register-container form {
+  width: 90%;
+}
+
+.register-container h2 {
+  font-size: 1.5em;
+}
+
+.about-link {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.explore-button {
+  display: inline-block;
+  margin-top: 0.3rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #48322E;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.explore-button:hover {
+  background-color: #75685F;
+}
+
+/* Pedidos */
+.orders-container {
+  padding: 2rem;
+}
+
+.orders-container.light {
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.orders-container.dark {
+  background-color: #333;
+  color: #f9f9f9;
+}
+
+.order-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.orders-container.dark .order-card {
+  background: #444;
+  color: #f9f9f9;
+}
+
 /*Estilo para el footer*/
 footer {
   padding: 20px;
@@ -501,7 +652,7 @@ footer {
   display: flex;
   justify-content: center;
   gap: 20px;
-  flex-wrap: wrap; /* Permite que los enlaces se ajusten en múltiples líneas en pantallas pequeñas */
+  flex-wrap: wrap;
   margin-bottom: 10px;
 }
 
@@ -522,17 +673,17 @@ footer {
 }
 
 .footer-links a:hover {
-  color: #E07A5F;  /* Cambia de color al pasar el cursor */
+  color: #E07A5F;
 }
 
 .social-media img {
-  width: 32px; /* Cambia el tamaño según necesites */
-  margin: 0 10px; /* Espaciado entre las imágenes */
-  transition: transform 0.2s; /* Suave aumento al pasar el mouse */
+  width: 32px;
+  margin: 0 10px;
+  transition: transform 0.2s;
 }
 
 .social-media img:hover {
-  transform: scale(1.1); /* Aumentar al pasar el mouse */
+  transform: scale(1.1);
 }
 
 .copy{

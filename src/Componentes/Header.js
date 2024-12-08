@@ -61,14 +61,18 @@ function Header({ darkMode, toggleDarkMode, isAuthenticated, username }) {
                 Mi cuenta
               </Link>
             ) : (
-              <Link to="/login">Iniciar Sesión</Link>
+              <Link to="/login">Iniciar sesión</Link>
             )}
           </li>
+          {isAuthenticated ? (
+            <li>
+              <Link to="/orders">Pedidos</Link>
+            </li>
+          ) : (
+            ""
+          )}
           <li>
             <Link to="/">Colecciones</Link>
-          </li>
-          <li>
-            <Link to="/About">FAQ</Link>
           </li>
           <li>
             <Link to="/About">Contacto</Link>
