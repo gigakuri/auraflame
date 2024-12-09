@@ -35,7 +35,7 @@ function Products({ darkMode }) {
       <Row>
         {colecciones.map((product) => {
           const velasFiltradas = velas.filter(
-            (vela) => vela.id_coleccion === product.id_coleccion
+            (vela) => vela.id_coleccion === product.id_coleccion && vela.delete_date === null
           );
 
           return (

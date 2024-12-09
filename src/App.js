@@ -22,6 +22,7 @@ class App extends Component {
       darkMode: false,
       isAuthenticated: false,
       username: "",
+      email: "",
       idUsuario: 13,
       rol: "",
       cartCount: 0,
@@ -35,8 +36,8 @@ class App extends Component {
     }));
   };
 
-  setAuthenticated = (authStatus, username = "", idUsuario = 13, rol = "") => {
-    this.setState({ isAuthenticated: authStatus, username, idUsuario, rol });
+  setAuthenticated = (authStatus, username = "", idUsuario = 13, rol = "",  email = "") => {
+    this.setState({ isAuthenticated: authStatus, username, idUsuario, rol, email });
   };
 
   handleLogin = (idUsuario) => {
@@ -86,24 +87,24 @@ class App extends Component {
       const productToRemove = prevState.cartItems.find(
         (item) => item.id_vela === id_vela
       );
-  
+
       // Si el producto existe en el carrito
       if (productToRemove) {
         // Resta la cantidad de productos que estamos eliminando del total
         const newCartCount = prevState.cartCount - productToRemove.quantity;
-  
+
         // Elimina el producto del carrito
         const updatedCartItems = prevState.cartItems.filter(
           (item) => item.id_vela !== id_vela
         );
-  
+
         // Devuelve el nuevo estado
         return {
           cartCount: newCartCount,
           cartItems: updatedCartItems,
         };
       }
-  
+
       // Si el producto no se encuentra
       return prevState;
     });
@@ -209,6 +210,8 @@ class App extends Component {
                   <Profile
                     setAuthenticated={this.setAuthenticated}
                     darkMode={darkMode}
+                    username={this.state.username}
+                    email={this.state.email}
                   />
                 }
               />

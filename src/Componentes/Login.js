@@ -20,8 +20,8 @@ function Login({ setAuthenticated }) {
       });
 
       if (response.status === 200) {
-        const { username, idUsuario, rol } = response.data;
-        setAuthenticated(true, username, idUsuario, rol);
+        const { username, idUsuario, rol,  email } = response.data;
+        setAuthenticated(true, username, idUsuario, rol, email);
         navigate("/");
       }
     } catch (error) {

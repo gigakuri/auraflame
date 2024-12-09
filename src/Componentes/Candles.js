@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
   Card,
@@ -10,6 +10,8 @@ import {
   Col,
   Button,
 } from "reactstrap";
+import axios from "axios";
+import URLPHP from "./Url";
 
 function Candles({ darkMode, addToCart, isAuthenticated, rol }) {
   const location = useLocation();
@@ -18,11 +20,28 @@ function Candles({ darkMode, addToCart, isAuthenticated, rol }) {
     nombreColeccion: "colección",
   };
 
+  const [localVelasFiltradas, setLocalVelasFiltradas] = useState(velasFiltradas);
+
+  const softDelete = async (id_vela) => {
+    try {
+      const response = await axios.post(URLPHP + "deleteVela.php", { id_vela });
+      if (response.status === 200) {
+        console.log("Vela eliminada exitosamente.");
+  
+        const updatedVelas = localVelasFiltradas.filter((vela) => vela.id_vela !== id_vela);
+        setLocalVelasFiltradas(updatedVelas);
+      }
+    } catch (error) {
+      console.error("Error al intentar eliminar la vela:", error);
+      alert("Hubo un error al eliminar la vela. Inténtalo de nuevo.");
+    }
+  };
+
   return (
     <section className={`featured-products ${darkMode ? "dark" : "light"}`}>
       <h2>Velas {nombreColeccion}</h2>
       <Row>
-        {velasFiltradas.map((vela) => (
+        {localVelasFiltradas.map((vela) => (
           <Col
             key={`vela-${vela.id_vela}`}
             sm="12"
@@ -40,7 +59,7 @@ function Candles({ darkMode, addToCart, isAuthenticated, rol }) {
                   <Button style={{backgroundColor: "#849FA0"}}>Editar</Button>
                 )}
                 {isAuthenticated && rol === "admin" && (
-                  <Button style={{backgroundColor: "#E07A5F"}}>Borrar</Button>
+                  <Button onClick={() => softDelete(vela.id_vela)} style={{backgroundColor: "#E07A5F"}}>Borrar</Button>
                 )}
               </CardBody>
             </Card>

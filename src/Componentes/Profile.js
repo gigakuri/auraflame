@@ -1,10 +1,8 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function Profile({ setAuthenticated, darkMode }) {
+function Profile({ setAuthenticated, darkMode, username, email }) {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { username } = location.state || {};
 
   const handleLogout = () => {
     setAuthenticated(false, "");
@@ -15,7 +13,10 @@ function Profile({ setAuthenticated, darkMode }) {
     <div className={`profile-page ${darkMode ? "dark" : "light"}`}>
       <div className="profile-container">
         <h1>Perfil de Usuario</h1>
-        <p>Bienvenido/a, {username ? username : "Usuario desconocido"}. Aquí puedes ver y actualizar tu información.</p>
+        <p>
+          Bienvenido/a, {username ? username : "Usuario desconocido"}. Aquí puedes ver tu información.
+        </p>
+        <p><strong>Correo:</strong> {email ? email : "No disponible"}</p>
         <button onClick={handleLogout} className="logout-button">
           Cerrar Sesión
         </button>
