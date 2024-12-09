@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import URLPHP from "./Url";
+import { FaTrashCan } from "react-icons/fa6";
 
 function Candles({ darkMode, addToCart, isAuthenticated, rol }) {
   const location = useLocation();
@@ -54,12 +55,12 @@ function Candles({ darkMode, addToCart, isAuthenticated, rol }) {
               <CardBody>
                 <CardTitle tag="h5">{vela.nombre}</CardTitle>
                 <CardText style={{'textAlign': 'center'}}>{vela.descripcion}</CardText>
-                <Button onClick={() => addToCart(vela)}>Comprar</Button>
-                {isAuthenticated && rol === "admin" && (
+                <Button onClick={() => addToCart(vela)} style={{marginLeft:"5rem"}}>Comprar</Button>
+                {/*isAuthenticated && rol === "admin" && (
                   <Button style={{backgroundColor: "#849FA0"}}>Editar</Button>
-                )}
+                )*/}
                 {isAuthenticated && rol === "admin" && (
-                  <Button onClick={() => softDelete(vela.id_vela)} style={{backgroundColor: "#E07A5F"}}>Borrar</Button>
+                  <Button onClick={() => softDelete(vela.id_vela)} style={{backgroundColor: "#E07A5F", marginLeft:"30px"}}><FaTrashCan /></Button>
                 )}
               </CardBody>
             </Card>
