@@ -35,7 +35,9 @@ function Products({ darkMode }) {
       <Row>
         {colecciones.map((product) => {
           const velasFiltradas = velas.filter(
-            (vela) => vela.id_coleccion === product.id_coleccion && vela.delete_date === null
+            (vela) =>
+              vela.id_coleccion === product.id_coleccion &&
+              vela.delete_date === null
           );
 
           return (
@@ -55,10 +57,16 @@ function Products({ darkMode }) {
                 />
                 <CardBody>
                   <CardTitle tag="h5">{product.nombre}</CardTitle>
-                  <CardText style={{'textAlign': 'justify'}}>{product.descripcion}</CardText>
+                  <CardText style={{ textAlign: "justify" }}>
+                    {product.descripcion}
+                  </CardText>
                   <Link
                     to="/store"
-                    state={{ velasFiltradas, nombreColeccion: product.nombre }}
+                    state={{
+                      velasFiltradas,
+                      nombreColeccion: product.nombre,
+                      id_coleccion: product.id_coleccion,
+                    }}
                   >
                     <Button color="warning" outline>
                       Ver Colección

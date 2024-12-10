@@ -36,8 +36,20 @@ class App extends Component {
     }));
   };
 
-  setAuthenticated = (authStatus, username = "", idUsuario = 13, rol = "",  email = "") => {
-    this.setState({ isAuthenticated: authStatus, username, idUsuario, rol, email });
+  setAuthenticated = (
+    authStatus,
+    username = "",
+    idUsuario = 13,
+    rol = "",
+    email = ""
+  ) => {
+    this.setState({
+      isAuthenticated: authStatus,
+      username,
+      idUsuario,
+      rol,
+      email,
+    });
   };
 
   handleLogin = (idUsuario) => {
@@ -48,6 +60,18 @@ class App extends Component {
     this.setState({
       isAuthenticated: false,
       username: "",
+    });
+  };
+
+  updateCartItem = (updatedItems) => {
+    const totalCount = updatedItems.reduce(
+      (total, item) => total + item.quantity,
+      0
+    );
+
+    this.setState({
+      cartItems: updatedItems,
+      cartCount: totalCount,
     });
   };
 
@@ -170,6 +194,7 @@ class App extends Component {
                     removeFromCart={this.removeFromCart}
                     clearCart={this.clearCart}
                     idUsuario={this.state.idUsuario}
+                    updateCartItem={this.updateCartItem}
                   />
                 }
               />

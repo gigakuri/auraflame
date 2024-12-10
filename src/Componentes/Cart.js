@@ -1,10 +1,17 @@
-import React, { useState }  from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import URLPHP from "./Url";
 import { Spinner } from "reactstrap";
+import { FaPlus, FaMinus  } from "react-icons/fa";
 
-function Cart({ cartItems = [], removeFromCart, clearCart, idUsuario }) {
+function Cart({
+  cartItems = [],
+  removeFromCart,
+  clearCart,
+  idUsuario,
+  updateCartItem,
+}) {
   const [loading, setLoading] = useState(false);
 
   const totalItems = cartItems.reduce(
@@ -15,6 +22,24 @@ function Cart({ cartItems = [], removeFromCart, clearCart, idUsuario }) {
     (total, item) => total + (parseFloat(item.precio) || 0) * item.quantity,
     0
   );
+
+  const increaseQuantity = (id_vela) => {
+    const updatedItems = cartItems.map((item) =>
+      item.id_vela === id_vela ? { ...item, quantity: item.quantity + 1 } : item
+    );
+    updateCartItem(updatedItems);
+  };
+
+  const decreaseQuantity = (id_vela) => {
+    const updatedItems = cartItems
+      .map((item) =>
+        item.id_vela === id_vela
+          ? { ...item, quantity: Math.max(item.quantity - 1, 0) }
+          : item
+      )
+      .filter((item) => item.quantity > 0);
+    updateCartItem(updatedItems);
+  };
 
   const handlePayment = () => {
     if (cartItems.length === 0) {
@@ -62,8 +87,28 @@ function Cart({ cartItems = [], removeFromCart, clearCart, idUsuario }) {
               <p>{item.descripcion}</p>
               <p>Cantidad: {item.quantity}</p>
               <p>Precio: ${parseFloat(item.precio).toFixed(2)}</p>
+              <button
+                style={{
+                  padding: "5px 12px",
+                  backgroundColor: "#75685F",
+                  margin: "0 5px",
+                }}
+                onClick={() => decreaseQuantity(item.id_vela)}
+              >
+                <FaMinus />
+              </button>
               <button onClick={() => removeFromCart(item.id_vela)}>
                 Eliminar
+              </button>
+              <button
+                style={{
+                  padding: "5px 12px",
+                  backgroundColor: "#75685F",
+                  margin: "0 5px",
+                }}
+                onClick={() => increaseQuantity(item.id_vela)}
+              >
+                <FaPlus />
               </button>
             </div>
           ))
