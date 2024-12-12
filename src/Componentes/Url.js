@@ -1,3 +1,3 @@
-export const URLPHP = "http://localhost/Proyectos/AuraFlame/";
+export const URLPHP = "https://auraflame.alwaysdata.net/php/";
 
 export default URLPHP;
