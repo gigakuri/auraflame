@@ -14,9 +14,11 @@ function About({ darkMode }) {
       <p>
         Nos inspira la magia de la luz y el poder de los aromas para enriquecer 
         tu día a día. Ya sea para relajarte después de un largo día o para crear 
-        momentos inolvidables, en AuraFlame encontrarás el complemento perfecto.
+        momentos inolvidables, en AuraFlame encontrarás el complemento perfecto. 
+        Si tiene cualquier duda, por favor, póngase en contacto con nosotros desde el correo
+        de <a href="mailto:Support@auraflame.com" style={{color: "#849FA0"}}>Support@auraflame.com</a>
       </p>
-      <h2 style={{marginTop:"2rem"}}>Nuestra misión</h2>
+      <h2 style={{marginTop:"3rem"}}>Nuestra misión</h2>
       <p>
         Crear experiencias sensoriales únicas que combinen diseño, calidad y sostenibilidad. 
         Nos comprometemos con el medio ambiente utilizando ingredientes naturales y 
